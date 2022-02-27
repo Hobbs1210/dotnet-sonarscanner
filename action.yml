@@ -1,0 +1,47 @@
+name: "dotnet-sonarscanner"
+description: "Run analysis for dotnet core via dotnet-sonarscanner"
+author: "Habib Zaid <habibzaid@gmail.com>"
+
+inputs:
+  buildCommand:
+    description: "Command to invoke build"
+    required: true
+  testCommand:
+    description: "Command to invoke tests"
+    required: false
+  projectKey:
+    description: "Specifies the key of the analyzed project in SonarQube"
+    required: true
+  projectName:
+    description: "Specifies the name of the analyzed project in SonarQube"
+    required: true
+  sonarHostname:
+    description: "The server URL"
+    default: "https://sonarcloud.io"
+    required: false
+  sonarOrganisation:
+    description: "Organisation"
+    required: true
+  beginArguments:
+    description: "Arguments to append to the begin command"
+    required: false
+  endArguments:
+    description: "Arguments to append to the end command"
+    required: false
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.buildCommand }}
+    - ${{ inputs.testCommand }}
+    - ${{ inputs.projectKey }}
+    - ${{ inputs.projectName }}
+    - ${{ inputs.sonarHostname }}
+    - ${{ inputs.sonarOrganisation }}
+    - ${{ inputs.beginArguments }}
+    - ${{ inputs.endArguments }}
+
+branding:
+  icon: 'check'
+  color: 'purple'
