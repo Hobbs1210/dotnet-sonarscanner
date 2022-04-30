@@ -21,5 +21,6 @@ RUN apt-get update && \
     dotnet tool install dotnet-sonarscanner --tool-path . --version 5.5.3
 
 ADD entrypoint.sh /entrypoint.sh
+RUN ["chmod", "+x", "/entrypoint.sh"]
 
 ENTRYPOINT ["/entrypoint.sh"]
